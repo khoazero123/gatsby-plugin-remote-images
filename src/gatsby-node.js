@@ -116,7 +116,12 @@ exports.onCreateNode = async (
 function getPaths(node, path, ext = null) {
   const value = get(node, path);
   if (value) {
-    return value.map((url) => (ext ? url + ext : url));
+    try {
+      return value.map((url) => (ext ? url + ext : url));
+    } catch (error) {
+      console.log({node, path, value});
+      throw error;
+    }
   }
 }
 
